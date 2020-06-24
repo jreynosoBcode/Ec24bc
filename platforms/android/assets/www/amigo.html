@@ -1,0 +1,41 @@
+ <script type="text/javascript">
+    $('#back-button').css('display','flex');
+</script>
+
+<div style="position: absolute;top: 44px;bottom: 168px;width: 100%;" id="mapAmigo">
+    
+</div>
+  
+<div class="list-block" style="margin: 0 !important; position: absolute;bottom: 0; width: 100%">
+ <div class="content-block-title" style="height: 34px">Direcciones</div>
+  <ul id="direcciones">
+    <li>
+      <div class="item-content">
+        <div class="item-inner" style="background: #f2f2f2; color: #000">
+          <div class="item-title label" style="font-weight: bold; width: 87px;">Ubicación:</div>
+          <div class="item-input">
+            <input type="text" id="ubicacion" name="ubicacion">
+          </div>
+        </div>
+      </div>
+    </li>
+    
+    <li>
+      <div class="item-content">
+        <div class="item-inner" style="background: #f2f2f2; color: #000">
+          <div class="item-title label" style="font-weight: bold; width: 87px">Destino:</div>
+          <div class="item-input">
+            <input type="text" id="destino" name="destino">
+          </div>
+        </div>
+      </div>
+    </li>
+   
+  </ul>
+  <button style="width: 100%; border-radius: 0px" onclick='buscarTaxi();' id="destino" value="" class="button button-big button-fill color-lightblue">Siguiente</button>
+</div>
+
+<script type="text/javascript" src="js/mapsAmigo.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjGHdi53xmyV8C4zP3vPBp-NVYZiAKJFk&callback=initMap"></script>
+      
+      

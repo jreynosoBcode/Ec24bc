@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">    
+
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+    <script type="text/javascript" src="js/variables.js"></script>
+    <script type="text/javascript" src="js/my-app.js"></script>
+  </head>
+<body class="page-login" style="background:url('img/taxi.jpg'); background-size:cover;background-repeat: no-repeat; ">
+  <div class="page" style="background: 0">
+    <div>
+     <div class="statusbar-overlay"></div>
+
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+      <div class="content-block-title" style="font-size: 20px;opacity: 1">IPA</div>
+        <div class= style="margin:0;">
+          <div class="row no-gutter" id="form-login" style="padding-top: 10px">
+          </div>
+          <div class="list-login" style="padding:0px 15px;">
+            <div class="form-login" style="padding-top: 70px">
+                <div class="row no-gutter" id="form-login" >
+                    <div class="col-100 titulo-login">
+                        <p style="margin: 0px 0px;font-size: 24px;color: #FFF;">Ingresar</p>
+                    </div>
+                </div>
+                  <table>
+                      <tr>
+                          <td><i style="color: #FFF" class="icon f7-icons">person</i><input id="correoLogin" name="" placeholder="Correo"></td>
+                      </tr>
+                      <tr>
+                          <td><i style="color: #FFF" class="icon f7-icons">eye</i><input type="password" id="passwordLogin" name="" placeholder="Contraseña"></td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <button href="#" style="width: auto;line-height: inherit; padding: 5px 10px; height:auto;background: rgb(255,235,59);color: black" class="button button-big button-fill" onclick='login()'>Entrar</button>  
+                          </td>
+
+                      </tr>
+                      <tr style="width: auto;">
+                          <!--<td style="color: #FFF; font-size: 17px">¿No estás registrado?&nbsp;   
+                          </td>-->
+                          <td style="color: #FFF; font-size: 17px">
+                            <a href="#" data-popup=".popup-resetpass" class="open-popup">
+                                  <div class="item-title" style="width:auto;color: #FFF">¿Olvidaste tu contrasena?</div>
+                              </a>
+                          </td>
+                          <td style="color: #FFF; font-size: 20px">
+                            <a href="#" data-popup=".popup-about" class="open-popup">
+                                  <div class="item-title" style="width:auto;color: #Fc0">Crea una cuenta</div>
+                              </a>
+                          </td>
+                      </tr>
+                  </table>
+              </div>
+              
+          </div>
+          
+          
+          <div class="list-login" style="padding:50px 15px 0px 15px; display: none;">
+                  <table>
+                      <tr>
+                          <td style="height: auto;">
+                              <a class="" style="background: #3b5998;width: 100%;">
+                                  <div style="display: flex;">
+                                      <div class="logo-social-login">
+                                          <img src="icon/facebook.png" style="width: 40px;height: 40px">
+                                      </div>
+                                      <div class="text-social-login">
+                                          Entra con Facebook
+                                      </div>
+                                  </div>
+                              </a>
+                          </td>
+                          <td style="height: auto">
+                              <a style="background: #d94a39;width: 100%;margin: 5px 0 0 0;">
+                                  <div style="display: flex;">
+                                      <div class="logo-social-login">
+                                          <img src="icon/gmail.png" width="40">
+                                      </div>
+                                      <div class="text-social-login">
+                                          Entra con Google
+                                      </div>
+                                  </div>
+                              </a>
+                          </td>
+                          
+                      </tr>
+                  </table>
+                </div>
+                <div style="width:100%;text-align:center;">
+                    <p class="powered" style="background: rgba(255, 255, 255, 0.6);">Powered by&nbsp;<img src="icon/google_maps.png"></p>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+
+          
+  <div class="popup popup-resetpass">
+    <div class="content-block" style="margin: 0 0;padding:0" id="form-reset">
+      <div style="width: 100%" >
+        <div class="bar-button-close">
+              <div class="row no-gutter">
+                <div class="col-80">
+                   
+                </div>
+                <div class="col-20">
+                  <a href="#" class="close-popup" id="a-button-close"><button class="button-close-modal"></button></a>  
+                </div>
+              </div>
+          </div>
+          <div class="content-block-title">Resetear Contraseña</div>
+          <div class="list-block" style="margin:25% 0 0">
+            <ul>
+              <li>
+                <div class="item-content">
+                  <h3 style="text-align: center;">Ingresa tu correo para enviarte mas información.</h3>
+                </div>
+              </li>
+               <li>
+                <div class="item-content">
+                  <div class="item-media"><i class="icon f7-icons">email</i></div>
+                  <div class="item-inner">
+                    <div class="item-input">
+                      <input name="correo_reset" type="email" placeholder="E-mail" id="correo_reset">
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="list-block" style="margin: 35px 0 0 0">
+            <div class="row">
+                <div class="col-50">
+                  <a style="border-radius: 0" href="#" class="button button-big button-fill color-red" onclick="cerrar_reset()">Cancelar</a>
+                </div>
+                <div class="col-50">
+                  <a style="border-radius: 0" onclick="resetpass()" href="#" class="button button-big button-fill color-green">Confirmar</a>
+                </div>
+              </div> 
+          </div>
+      </div>
+    </div> 
+  </div>
+
+  <div class="popup popup-about">
+    <div class="content-block" style="margin: 0 0;padding:0" id="form-registro">
+      <div style="width: 100%" >
+          <div class="bar-button-close">
+              <div class="row no-gutter">
+                <div class="col-80">
+                   
+                </div>
+                <div class="col-20">
+                  <a href="#" class="close-popup" id="a-button-close"><button class="button-close-modal"></button></a>  
+                </div>
+              </div>
+          </div>
+          <div class="content-block-title">Autenticación</div>
+              <div class="list-block" style="margin: 0 0">
+                <ul>
+                  <!-- Text inputs -->
+                   <li>
+                        <div class="item-content">
+                          <div class="item-media"><i class="icon f7-icons">email</i></div>
+                          <div class="item-inner">
+                            <div class="item-input">
+                              <input name="correo" type="email" placeholder="E-mail" id="correo">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="item-content">
+                          <div class="item-media"><i class="icon f7-icons">eye</i></div>
+                          <div class="item-inner">
+                            <div class="item-input">
+                              <input name="password" type="password" placeholder="Contraseña" id="pass1">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="item-content">
+                          <div class="item-media"><i class="icon f7-icons">eye_fill</i></div>
+                          <div class="item-inner">
+                            <div class="item-input">
+                              <input type="password" placeholder="Repite contraseña" id="pass2">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                </ul>
+              </div>
+          </div>
+          <div class="content-block-title">Tus datos</div>
+              <div class="list-block" style="margin: 0 0">
+                <ul>
+                  <!-- Text inputs -->
+                  <!--<li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input name="apodo" type="text" placeholder="Apodo">
+                        </div>
+                      </div>
+                    </div>
+                  </li>-->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">person</i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input name="nombre" type="text" placeholder="Nombre" id="nombre">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">person</i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input name="apellidop" type="text" placeholder="Apellido paterno" id="apellidop">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">person</i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input name="apellidom" type="text" placeholder="Apellido materno" id="apellidom">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- Date -->
+                  <li>
+
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">calendar</i></div>
+                      <div class="item-inner">
+                          <div class="item-title label" style="width: auto">Fecha de nacimiento</div>
+                        <div class="item-input">
+                          <input name="fechanac" type="date" placeholder="" value="2014-04-30" id="fechanac">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!--<li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">phone</i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input name="tel" type="text" placeholder="Teléfono local">
+                        </div>
+                      </div>
+                    </div>
+                  </li>-->
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">phone_round</i></div>
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input name="cel" type="number" placeholder="Celular" id="cel">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">home_fill</i></div>
+                      <div class="item-inner">
+                        <div class="row">
+                          <div class="col-50"><input name="calle" type="text" placeholder="Calle (opcional)"></div>
+                          <div class="col-50"><input name="numero" type="text" placeholder="# (opcional)"></div>
+                          <div class="col-50"><input name="colonia" type="text" placeholder="Colonia (opcional)"></div>
+                          <div class="col-50"><input name="cp" type="text" placeholder="C.P. (opcional)"></div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                 
+                  <!-- Switch (Checkbox) 
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">check</i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">Switch</div>
+                        <div class="item-input">
+                          <label class="label-switch">
+                            <input type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- Slider (Range input) 
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon f7-icons">filter</i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">Slider</div>
+                        <div class="item-input">
+                          <div class="range-slider">
+                            <input type="range" min="0" max="100" value="50" step="0.1">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- Textarea -->
+                 
+                  
+                </ul>
+                <div class="list-block" style="margin: 10px 0 0 0">
+                  <div class="row">
+                            <div class="col-50">
+                              <a style="border-radius: 0" href="#" class="button button-big button-fill color-red" onclick="cerrar_registro()">Cancel</a>
+                            </div>
+                            <div class="col-50">
+                              <a style="border-radius: 0" onclick="registro()" href="#" class="button button-big button-fill color-green">Submit</a>
+                            </div>
+                          </div> 
+                      </div>
+              </div>
+      </div>
+  </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(function () {
+    
+                if(localStorage.user!==undefined && localStorage.user!=="" && localStorage.pass!==undefined && localStorage.pass!==""){
+                    document.getElementById("correoLogin").value=localStorage.user;
+                    document.getElementById("passwordLogin").value=localStorage.pass;
+
+                    login();
+                }
+
+            });
+  function login() {
+    
+    var URL=ruta+"/Clientes/login.php";
+    //var URL="http://localhost/taxiapp/Clientes/login.php";
+    var correo=$('#correoLogin').val();
+    var pass=$('#passwordLogin').val();
+    localStorage.user = document.getElementById("correoLogin").value;
+    localStorage.pass = document.getElementById("passwordLogin").value;
+    if (correo=="" || pass=="") {
+        var myApp = new Framework7();
+        myApp.modal({
+          title: '<label style="color:red">Error<label>',
+          text: 'Ingresa tu correo y contraseña',
+          buttons: [
+            {
+              text: 'Ok',
+              onClick: function() {
+              }
+            }
+          ]
+        })
+    }else{
+        $.ajax({
+          type: "POST",
+          dataType : 'json',
+          cache: false,
+          url:URL,
+          data:"correo="+correo+"&password="+pass,
+          success: function (data)
+          {
+                console.log(data[0]);
+              if(data[0]=="UNSUCCESSFUL"){
+                  var myApp = new Framework7();
+                  myApp.modal({
+                    title: '<label style="color:red">Error<label>',
+                    text: 'Verifica que el correo o contraseña estén correctos',
+                    buttons: [
+                      {
+                        text: 'Ok',
+                        onClick: function() {
+                        }
+                      }
+                    ]
+                  })
+                $('#passwordLogin').val("");
+              }else{
+                  window.localStorage.setItem("id_cliente", data[0]);
+                  window.location="inicio.html";
+
+              }
+          },
+          error: function(e){
+              console.log('Error: '+e);
+          }  
+        });
+    }   
+}
+</script>

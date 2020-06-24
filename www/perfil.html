@@ -1,0 +1,179 @@
+<script type="text/javascript">
+  $( document ).ready(function() {
+      $('#back-button').css('display','none');
+      loadPerfil();
+     
+  });
+</script>
+<div class="content-block-title">Tu perfil</div>
+    <div class="content-block">
+      <div class="row no-gutter">
+        <div class="col-40">
+            <a href="#" data-popover=".popover-foto" class="open-popover"><img class="perfil-img" src="icon/smile.png"></a>
+        </div>
+        <div class="col-60" style="font-size: 16px; text-align: right;">
+            <div class="row no-gutter">
+                <div class="col-100"><label class="apodo-perfil" id="apodo"></label></div>
+            </div>
+            <div class="row no-gutter">
+                <div class="col-100">Miembro desde:</div>
+                <div class="col-100" id="fecha_registro"></div>
+              </div>
+        </div>
+        <div class="col-100 " style="text-align: left; border-bottom: 1px solid #d2d2d2; margin: 10px 0px">
+            <label class="title-info-perfil">Información básica<a data-popup=".popup-perfil" class="open-popup" style="float: right;"><i class="icon f7-icons">compose</i></a></label>
+        </div>
+        <div class="col-100" style="font-size: 16px;padding: 0px 10px">
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-33" style="font-weight: bold;">Nombre(s)</div>
+                <div class="col-66" id="nombre"></div>
+            </div>
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-33" style="font-weight: bold;">Apellido(s)</div>
+                <div class="col-66" id="apellidos"></div>
+            </div>
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-33" style="font-weight: bold;">Fecha de nacimiento</div>
+                <div class="col-66" id="fecha_nacimiento"></div>
+            </div>
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-33" style="font-weight: bold;">Correo</div>
+                <div class="col-66" id="correo"></div>
+            </div>
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-33" style="font-weight: bold;">Género</div>
+                <div class="col-66" style="display: flex;">
+                <div style="text-align: center;">
+                  <label class="label-checkbox item-content" style="display: flex;">
+                    <!-- Checked by default -->
+                    Masculino&nbsp;<input type="checkbox" id="my-checkbox-m" disabled="disabled">
+                    <div class="item-media">
+                      <i class="icon icon-form-checkbox" style="width: 20px; height: 20px"></i>
+                    </div>
+                  </label>
+                </div>
+                <!-- Another chekbox item -->
+                <div style="text-align: center; margin:0px 20px ">
+                  <label class="label-checkbox item-content" style="display: flex;">
+                    Femenino&nbsp;<input type="checkbox" id="my-checkbox-f" disabled="disabled">
+                    <div class="item-media">
+                      <i class="icon icon-form-checkbox" style="width: 20px; height: 20px"></i>
+                    </div>
+                  </label>
+                </div>
+                </div>
+            </div>
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-33" style="font-weight: bold;">Teléfono</div>
+                <div class="col-66" id="tel"></div>
+            </div>
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-33" style="font-weight: bold;">Celular</div>
+                <div class="col-66" id="cel"></div>
+            </div>
+            <div class="row no-gutter" id="row-info-perfil">
+                <div class="col-100" style="font-weight: bold;margin: 10px 0">Dirección</div>
+                
+                <div class="col-100" style="display: flex;border-bottom: 1px solid #f2f2f2">
+                    <div id="calle" class="col-80" style="text-align: center; font-size: 14px;"></div>
+                    <div id="numero" class="col-20" style="text-align: center; font-size: 14px;"></div>
+                </div>
+                <div class="col-100" style="display: flex;color: #b2b2b2">
+                    <div class="col-80" style="text-align: center; font-size: 14px; font-weight: bold;">Calle</div>
+                    <div class="col-20" style="text-align: center; font-size: 14px; font-weight: bold;">No.</div>
+                </div>
+                <div class="col-100" style="display: flex;border-bottom: 1px solid #f2f2f2">
+                    <div id="colonia" class="col-80" style="text-align: center; font-size: 14px;"></div>
+                    <div id="cp" class="col-20" style="text-align: center; font-size: 14px;"></div>
+                </div>
+                <div class="col-100" style="display: flex;color: #b2b2b2">
+                    <div class="col-80" style="text-align: center; font-size: 14px; font-weight: bold;">Colonia</div>
+                    <div class="col-20" style="text-align: center; font-size: 14px; font-weight: bold;">C.P.</div>
+                </div>
+            </div>
+                <div class="col-100 " style="text-align: left; border-bottom: 1px solid #d2d2d2; margin: 10px 0px">
+                    <label class="title-info-perfil">Tus metodos de pago</label>
+                </div>
+            </div>
+
+            <div class="list-block media-list" style="margin: 0;width: 100%;padding: 0px 10px;">
+              <ul>
+                <li id="met-paypal" style="background: #fff; display : none;">
+                  <a href="#" class="" style="display: flex;color: #717175;">
+                    <div class="item-media"><img src="icon/paypal.png" width="40"></div>
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title" style="font-size: 22px">Pay-Pal</div>
+                      </div>
+                      <div class="item-text">Pay-Pal la manera mas facil de pagar en linea.</div>
+                    </div>
+                  </a>
+                </li>
+                <li id="met-efectivo" style="background: #fff; display : none;">
+                  <a href="#" class="" style="display: flex;color: #717175;">
+                    <div class="item-media"><img src="icon/efectivo.png" width="40"></div>
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title" style="font-size: 22px">Efectivo</div>
+                      </div>
+                        <div class="item-text">Paga con efectivo cuando llegues a tu destino.</div>
+                    </div>
+                  </a>
+                </li>
+                <!--<li style="background: #fff">
+                  <a  href="#" class="open-login-screen" style="display: flex;color: #717175;">
+                    <div class="item-media"><img src="icon/add-credit-card.png" width="40"></div>
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title" style="font-size: 22px">Editar Forma de Pago</div>
+                      </div>
+                        <div class="item-text">Selecciona que metodo de pago usaras.</div>
+                    </div>
+                  </a>
+                </li>-->
+                 <li style="background: #fff">
+                  <a  href="#" onclick="abremetodos()" style="display: flex;color: #717175;">
+                    <div class="item-media"><img src="icon/add-credit-card.png" width="40"></div>
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title" style="font-size: 22px">Editar Forma de Pago</div>
+                      </div>
+                        <div class="item-text">Selecciona que metodo de pago usaras.</div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA EDITAR DATOS DEL PERFIL-->
+    
+    
+
+</html>
+<header>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	
+
+<script type="text/javascript">
+
+
+
+var myPhotoBrowserDark = myApp.photoBrowser({
+    photos : [
+        '/icon/digits.png'
+    ],
+    theme: 'dark'
+});
+
+$('#digits').on('click', function () {
+    myPhotoBrowserDark.open();
+});
+
+
+
+
+</script>
+</header>

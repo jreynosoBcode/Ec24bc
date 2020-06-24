@@ -1,0 +1,31 @@
+<script type="text/javascript">
+  $( document ).ready(function() {
+      $('#back-button').css('display','none');
+      loadHistorial();
+  });
+</script>
+  <div class="content-block-title">Historial de viajes</div>
+
+  <div class="data-table data-table-init card">
+    <div class="card-header" style="padding: 0px">
+      <div class="data-table-title"></div>
+      <div class="data-table-actions" style="display: flex; align-items: center;">
+        <div class="">Filtros</div>
+        <a class="link icon-only"><i class="icon f7-icons">sort</i></a>
+      </div>
+    </div>
+    <div>
+      <div class="card-content">
+        <table style="text-align: center; width: 100%" class="tabla-historial" id="tabla-historial">
+          <tr>
+            <td colspan="4">
+              <span style="width:80px; height:80px" class="preloader preloader-white"></span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    
+  </div> 
+   

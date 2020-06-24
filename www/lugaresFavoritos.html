@@ -1,0 +1,25 @@
+<script type="text/javascript">
+  $( document ).ready(function() {
+      $( "#div-map" ).css("display","none");
+      $('#back-button').css('display','none');
+      getfavoritos();
+  });
+</script>
+  <div class="content-block-title">Lugares favoritos</div>
+
+  <div class="data-table data-table-init card">
+    <div class="card-header" style="padding: 0 5px">
+      <div class="data-table-title"></div>
+      <div class="data-table-actions" style="display: flex; align-items: center;">
+        <div class="">Agregar&nbsp;</div>
+        <a  data-popup=".popup-agregarLugar" class="open-popup" onclick="lugaresFavoritos()"><i class="icon f7-icons">add_round</i></a>
+      </div>
+    </div>
+    <div class="card-content">
+        <div class="list-block">
+            <ul id="lista-lugaresFavoritos">
+
+            </ul>
+        </div>
+    </div>
+  </div> 

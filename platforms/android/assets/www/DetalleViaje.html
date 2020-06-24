@@ -1,0 +1,131 @@
+<div class="content-block-title">Detalles del Viaje</div>
+    <div class="content-block">
+      <div class="col-100" style="font-size: 16px;padding: 0px 10px">
+        <div class="row no-gutter" id="row-detalle-viaje">
+           <div class="col-33" style="font-weight: bold;">Fecha:</div>
+           <div class="col-66" id="detalle_fecha"></div>
+        </div>
+        <div class="row no-gutter" id="row-detalle-viaje">
+           <div class="col-33" style="font-weight: bold;">Ubicacion:</div>
+           <div class="col-66" id="detalle_ubicacion"></div>
+        </div>
+        <div class="row no-gutter" id="row-detalle-viaje">
+           <div class="col-33" style="font-weight: bold;">Destino:</div>
+           <div class="col-66" id="detalle_destino"></div>
+        </div>
+        <div class="row no-gutter" id="row-detalle-viaje">
+           <div class="col-33" style="font-weight: bold;">Hora Salida:</div>
+           <div class="col-66" id="detalle_hrSalida"></div>
+        </div>
+        <div class="row no-gutter" id="row-detalle-viaje">
+           <div class="col-33" style="font-weight: bold;">Hora Llegada:</div>
+           <div class="col-66" id="detalle_hrLlegada"></div>
+        </div>
+        <div class="row no-gutter" id="row-detalle-viaje">
+           <div class="col-33" style="font-weight: bold;">Costo:</div>
+           <div class="col-66" id="detalle_costo" value=""></div>
+        </div>
+      </div>
+    </div>
+      <form name="_xclick" action="https://www.paypal.com/hn/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_xclick"/>
+          <input type="hidden" name="business" value="csanchez@bcodemexico.com"/>
+          <input type="hidden" name="currency_code" value="MXN"/>
+          <input type="hidden" name="item_name" value="Viaje en Taxi"/>
+          <input type="hidden" id="cantidad" name="amount" value="1"/>
+          <!--<input type="image" src="http://www.paypal.com/es_XC/i/btn/x-click-but01.gif" border="0" name="submit" alt="Haga pagos con PayPal: es rápido, sin costo y seguro"/>-->
+        <button id="mod-paypal" style="position: absolute; width: 100%; border-radius: 0px; bottom: 45px; display: none;" onclick='pagar_paypal()' name="submit" value="" class="button button-big button-fill color-lightblue"><img src="icon/paypal.png" width="40"><label>Pagar con Pay-Pal</label></button>
+      </form>
+    <button id="mod-efectivo" style="position: absolute; width: 100%; border-radius: 0px; bottom: 0" onclick='pagar_efectivo()' value="" class="button button-big button-fill color-green"><img src="icon/efectivo.png" width="40"><label>Pagar con Efectivo</label></button>
+  
+
+ <script type="text/javascript" src="js/variables.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){    
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        cache: false,
+        //url: "http://localhost/taxiapp/Clientes/buscarMetodoPago.php",
+        url: ruta+"/Clientes/buscarMetodoPago.php",
+        data: "id_cliente="+id_cliente,
+        success: function (data) {
+            console.log(data);
+            var metodo=data[0];
+
+            if (metodo=="paypal") {
+                var paypal = document.getElementById("mod-paypal");
+                paypal.style.display="block";              
+            }
+        },
+        error: function (e) {
+            console.log('Error: ' + e+ idpet);
+        }
+    });
+  });
+
+  function pagar_paypal(){
+    var costo=document.getElementById("detalle_costo").value;
+    document.getElementById("cantidad").value=costo;
+    var idpet=document.getElementById("id_pet").value;
+    $.ajax({
+        type: "POST",
+        dataType: 'text',
+        cache: false,
+        //url: "http://localhost/taxiapp/Clientes/Pagar.php",
+        url: ruta+"/Clientes/Pagar.php",
+        //data: "id_peticion=1",
+        data: "id_peticion="+idpet,
+        success: function (data) {
+            console.log(data);
+             myApp.modal({
+                  title:  'Pago realizado exitosamente',
+                  text: '',
+                  buttons: [
+                    {
+                      text: 'Ok',
+                      onClick: function() {                          
+                          myApp.popup('.popup-calificacion-taxista');
+                        }
+                      }
+                    ]
+                  })
+
+        },
+        error: function (e) {
+            console.log('Error: ' + e+ idpet);
+        }
+    });
+  }
+
+  function pagar_efectivo(){
+    var idpet=document.getElementById("id_pet").value;
+    $.ajax({
+        type: "POST",
+        dataType: 'text',
+        cache: false,
+        //url: "http://localhost/taxiapp/Clientes/Pagar.php",
+        url: ruta+"/Clientes/Pagar.php",
+        //data: "id_peticion=1",
+        data: "id_peticion="+idpet,
+        success: function (data) {
+            console.log(data);
+             myApp.modal({
+                  title:  'Pago realizado exitosamente',
+                  text: '',
+                  buttons: [
+                    {
+                      text: 'Ok',
+                      onClick: function() {                          
+                          myApp.popup('.popup-calificacion-taxista');
+                        }
+                      }
+                    ]
+                  })
+        },
+        error: function (e) {
+            console.log('Error: ' + e+ idpet);
+        }
+    });
+  }
+</script>

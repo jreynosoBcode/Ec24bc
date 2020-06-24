@@ -1,0 +1,267 @@
+
+
+<div class="" style="margin:44px 0 0 0;padding: 20px 0px !important; text-align: center; font-size: 20px;color: #0489b1">Él será tu chofer</div>
+<div onclick="" class="content-block row" style="margin:0px 20px; padding: 10px;border:1px solid #c2c2c2; cursor: pointer;">  
+  <div class="col-33">
+    <div class="item-media"><img src="icon/friends.png" width="105px"></div> 
+    <div id="label-t" class="col-100" style="font-weight: bold; text-align: center; border-bottom: 1px solid #d2d2d2; margin: 10px 0px">Calificación del chofer</div>   
+    <div style="text-align:center; font-weight: bold;">
+      <div id="promedio_chof" class="col-100" style="font-size:25px; color: rgb(255,235,59);"></div>
+      <div id="txt_promedio" class="col-100" style="font-style:italic;"></div>
+    </div>
+  </div>
+  <div class="col-66" style="font-size: 16px; text-align: left;">
+    <div id="label-t" class="col-100" style="font-weight: bold;border-bottom: 1px solid #d2d2d2; margin: 10px 0px">Información del chofer</div>
+    <div id="nombreTaxista" class="col-100"></div>
+    <div id="edadTaxista" class="col-100"></div>
+    <div id="cel_chof" class="col-100"></div>
+    <div id="label-t" class="col-100" style="font-weight: bold;border-bottom: 1px solid #d2d2d2; margin: 10px 0px">Información de la unidad</div>
+    <div id="compania_chof" class="col-100"></div>
+    <div id="modelo_chof" class="col-100"></div>
+    <div id="placa_chof" class="col-100"></div>
+  </div>
+</div>
+<div id="estado" style="margin: 10px 20px 0px 20px">  
+    <p style="width: 100%;text-align: center;font-size: 18px; margin-bottom: 0px">Tu taxi está en camino</p>
+    <p><span class="progressbar-infinite" style="height: 5px"></span></p> 
+    <div style="width: 100%;justify-content:center ;display: flex; margin-top: 10px">
+      <a href="#" class="confirm-ok-cancel">
+        <button class="button button-big button-fill color-red">Cancelar Taxi</button>
+        </a>
+    </div>
+</div>
+<div class="social-net">
+  <div class="social-net-tittle">
+    <p>Comparte tu viaje y experiencia</p>
+  </div>
+  <div class="social-net-content">
+     <a href="#" class="item-link item-content">
+      <div class="item-media"><img src="icon/facebook.png" width="25" height="25"></div>
+      <div class="item-inner">
+        <div class="item-title">Facebook</div>
+      </div>
+    </a>
+    <a href="#" class="item-link item-content">
+      <div class="item-media"><img src="icon/twitter.png" width="25" height="25"></div>
+      <div class="item-inner" id="last-item-inner">
+        <div class="item-title">Twitter</div>
+      </div>
+    </a>
+    <!-- <a href="#" class="item-link item-content">
+      <div class="item-media"><img src="icon/whatsapp.png" width="25" height="25">
+      </div>
+      <div class="item-inner" id="last-item-inner">
+        <div class="item-title">Whatsapp</div>
+      </div>
+    </a>-->
+     <a href="#" class="item-link item-content">
+      <div class="item-media"><img src="icon/instagram.png" width="25" height="25">
+      </div>
+      <div class="item-inner" id="last-item-inner">
+        <div class="item-title">Instagram</div>
+      </div>
+    </a>
+  </div>
+   
+</div>
+
+ <script type="text/javascript" src="js/variables.js"></script>
+<script type="text/javascript">
+  var ubicacion_u=setInterval(ubicacion_unidad, 5000);
+  var idpet=document.getElementById("id_pet").value;
+  var idchof=document.getElementById("id_chof").value;
+$( document ).ready(function() {
+          $( "#menu" ).load( "menu.html" );
+          var matricula=document.getElementById("matricula_chof").value;  
+
+        var URL=ruta+"/Clientes/buscarTaxista.php";
+        //var URL="http://localhost/taxiApp/Clientes/buscarTaxista.php";
+        $.ajax({
+          type: "POST",
+          dataType : 'json',
+          cache: false,
+          url:URL,
+          data: 
+              "id_chofer="+idchof,
+               // Adjuntar los campos del formulario enviado.
+          success: function (data)
+          {
+            // Mostrar la respuestas del script PHP.
+             console.log(data);
+             var nombre=data[0];
+             var apellido_p=data[1];
+             var apellido_m=data[2];
+             var fecha_nac=data[3];
+             var celular=data[4];
+             var promedio=data[5];
+             var compania=data[6];
+             var modelo=data[7];
+
+             // estrella -> &#9733 ★;
+             nombre=nombre.charAt(0).toUpperCase() + nombre.substring(1).toLowerCase();
+             apellido_p=apellido_p.charAt(0).toUpperCase() + apellido_p.substring(1).toLowerCase();
+             apellido_m=apellido_m.charAt(0).toUpperCase() + apellido_m.substring(1).toLowerCase();
+             compania=compania.charAt(0).toUpperCase() + compania.substring(1).toLowerCase();
+             modelo=modelo.charAt(0).toUpperCase() + modelo.substring(1).toLowerCase();
+
+             var anio_bd=fecha_nac.substring(0,4);
+             var anio_act = new Date();
+             var yyyy = anio_act.getFullYear();
+             var edad=yyyy-anio_bd;
+             document.getElementById("nombreTaxista").textContent="Nombre: "+nombre+" "+apellido_p+" "+apellido_m;
+             document.getElementById("edadTaxista").textContent="Edad: "+edad+" años";
+             document.getElementById("cel_chof").textContent="Cel: "+celular;
+             document.getElementById("compania_chof").textContent="Compañia: "+compania;
+             document.getElementById("modelo_chof").textContent="Modelo: "+modelo;
+             document.getElementById("placa_chof").textContent="Matricula: "+matricula;
+
+             switch(promedio) {
+                case "1":
+                    document.getElementById("txt_promedio").textContent='"Pesimo"';
+                    document.getElementById("promedio_chof").textContent="★";
+                break; 
+                case "2":
+                    document.getElementById("txt_promedio").textContent='"Malo"';
+                    document.getElementById("promedio_chof").textContent="★★";
+                break; 
+                case "3":
+                    document.getElementById("txt_promedio").textContent='"Regular"';
+                    document.getElementById("promedio_chof").textContent="★★★";
+                break; 
+                case "4":
+                    document.getElementById("txt_promedio").textContent='"Bueno"';
+                    document.getElementById("promedio_chof").textContent="★★★★";
+                break; 
+                case "5":
+                    document.getElementById("txt_promedio").textContent='"Excelente"';
+                    document.getElementById("promedio_chof").textContent="★★★★★";
+                break;                    
+            }
+
+          },
+          error: function(e){
+              alert('Error: '+e);
+          }  
+        });
+             
+      });
+
+  function ubicacion_unidad(){
+        var URL=ruta+"/Clientes/seguirTaxi.php";
+        //var URL="http://localhost/taxiapp/Clientes/seguirTaxi.php";
+        $.ajax({
+          type: "POST",
+          dataType : 'json',
+          cache: false,
+          url:URL,
+          data: 
+              "id_chofer="+idchof+"&id_peticion="+idpet,
+               // Adjuntar los campos del formulario enviado.
+          success: function (data)
+          {
+           console.log(data);
+           var lat_chof=data[0];
+           var lon_chof=data[1];
+           var lat_clie=data[2];
+           var lon_clie=data[3];
+
+           var directionsService = new google.maps.DirectionsService();
+           var start=new google.maps.LatLng(lat_chof,lon_chof);
+           var end=new google.maps.LatLng(lat_clie,lon_clie);
+          
+           var request = {
+              origin:start,
+              destination:end,
+              travelMode: google.maps.TravelMode.DRIVING
+            };
+          
+            directionsService.route(request, function(result, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                var distancia=result.routes[0].legs[0].distance.value;                
+                console.log(result.routes[0].legs[0].distance.value + " meters");
+              }
+              if (distancia<=10) {
+                clearInterval(ubicacion_u);
+                ubicacion_u = undefined;
+                 myApp.modal({
+                  title:  'Notificacion',
+                  text: 'Tu taxi a llegado',
+                  buttons: [
+                    {
+                      text: 'Ok',
+                      onClick: function() {                          
+                          myApp.popup('.popup-verSolicitud');
+                          trazar_ruta();
+                          google.maps.event.trigger(map_m, 'resize');
+                        }
+                      }
+                    ]
+                  })
+                
+                }
+            });
+              
+          },
+          error: function(e){
+              alert('Error: '+e);
+          }  
+        });
+  }
+
+  $('.confirm-ok-cancel').on('click', function () {
+    myApp.modal({
+    title:  'Cancelar servicio',
+    text: '¿Estás seguro que deseas cancelar el servicio?',
+    buttons: [
+      {
+        text: 'No',
+        onClick: function() {
+         
+        }
+      },
+      {
+        text: 'Si',
+        onClick: function() {
+
+          myApp.modal({
+            title:  'Cancelando servicio',
+            text: 'Tu servicio solicitado será cancelado en breve',
+            buttons: [
+              {
+                text: 'Ok',
+                onClick: function() {
+                  clearInterval(ubicacion_u);
+                  ubicacion_u = undefined;
+                  var URL=ruta+"/Clientes/cancelarTaxi.php";
+                  //var URL="http://localhost/taxiapp/Clientes/cancelarTaxi.php";
+                  var idpet=document.getElementById("id_pet").value;
+                  $.ajax({
+                      type: "POST",
+                      dataType : 'text',
+                      cache: false,
+                      url:URL,
+                      data: 
+                      "id_peticion="+idpet,
+                       // Adjuntar los campos del formulario enviado.
+                    success: function (data)
+                    {
+                      console.log(data);                      
+                      $( "#contenido_pagina" ).load( "cancelado.html" );
+                      
+                    },
+                    error: function(e){
+                        alert('Error: '+e);
+                    }  
+                  });                  
+                }
+              }
+            ]
+          })
+        }
+      },
+     
+    ]
+  })
+});
+</script>
+<script type="text/javascript" src="js/encamino.js"></script>

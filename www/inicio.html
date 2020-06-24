@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">    
+
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+    <script type="text/javascript" src="js/variables.js"></script>
+    <script type="text/javascript" src="js/my-app.js"></script>
+    
+    
+    <script type="text/javascript">
+      var id_cliente; 
+
+      $( document ).ready(function() {
+          console.log(window.localStorage.getItem("id_cliente"));
+          if (window.localStorage.getItem("id_cliente")==null) {
+              window.location="index.html";
+          }else{
+              id_cliente=window.localStorage.getItem("id_cliente");
+          }
+          $( "#menu" ).load( "componentes/menu.html" );
+          $( "#lugares" ).load( "componentes/lugares.html" );
+          $( "#contenido_pagina" ).load( "inicio_content.html" );
+          $('#list-verLugar').hide();
+      });
+    </script>
+  </head>
+<body>
+    <input type="hidden" id="txt_lat_des" value="">
+    <input type="hidden" id="txt_long_des" value="">
+    <input id="id_pet" type="hidden" name="id_pet" value="">
+    <input id="id_chof" type="hidden" name="id_chof" value="">
+    <input id="matricula_chof" type="hidden" name="matricula_chof" value="">
+    <input id="btn_termina_viaje" type="hidden" name="btn_termina_viaje" value="progreso">
+    
+    <div class="statusbar-overlay"></div>
+
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal" id="menu" style="background: rgba(255, 255, 255, 0.5); border-right: 1px solid #c2c2c2">
+        
+    </div>
+    <div class="panel panel-right panel-reveal" id="lugares" style="background: rgba(255, 255, 255, 0.5); border-left: 1px solid #c2c2c2">
+        
+
+    </div>
+    <!-- Views -->
+    <div class="views" style="background: #fff">
+        <!-- Your main view, should have "view-main" class -->
+        
+        <div class="view view-main">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left"> <a href="#" class="link icon-only open-panel"><i class="f7-icons color-black" style="color: grey">bars</i></a></div>
+                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                    <!--<div class="right"><a href="#" class="link icon-only open-right-panel" id="back-button" style="display: flex;cursor: pointer;"><i class="f7-icons color-perfil" >menu</i></a></div>-->
+                    <div class="right" id="back-button">
+                        <div class="item-inner"  style="display: flex;justify-content: flex-end;width: 100%">
+                            <div class="item-title label" style="display: flex;align-items: center;font-size: 14px">Ubicacion GPS&nbsp</div>
+                            <div class="item-input">
+                              <label class="label-switch">
+                                <input id="GPScheck" type="checkbox" onchange="GPScheck()">
+                                <div id="GPScheck" class="checkbox"></div>
+                              </label>
+                            </div>
+                        </div>
+                        <a href="#" class="link icon-only open-right-panel" style="display: flex;cursor: pointer;"><i class="f7-icons color-perfil" >menu</i></a>
+                    </div>
+                </div>
+            </div>
+          <div class="page-content infinite-scroll">
+            <div class="content-block" id="contenido_pagina" style="padding: 0; margin: 44px 0px 0px 0px;background: #fff">
+                    
+
+            </div>
+          </div>
+      </div>
+      
+  </div>
+<!-- popup mapa nuevo-->
+<div class="popup popup-verSolicitud modal-in">
+            <div class="content-block-title" style="height: 34px">Ruta de viaje</div>
+            <div style="position: absolute;top: 44px;bottom: 146px;width: 100%;" id="mapSolicitud">
+            </div>
+            <div class="content-block" style="margin: 0;padding: 0">
+                <div class="list-block" style="margin: 0" id="div-map">
+
+                </div>
+                <div class="list-block" style="margin: 0 !important; position: absolute;bottom: 0; width: 100%">
+
+                    <ul class="datos_solicitud_pendiente">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner" style="background: #f2f2f2; color: #000">
+                                    <div class="item-title label" style="font-weight: bold; width: 87px;">Ubicación:</div>
+                                    <div class="item-input">
+                                        <input type="text" id="ubicacion_cliente" name="ubicacion_cliente">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner" style="background: #f2f2f2; color: #000">
+                                    <div class="item-title label" style="font-weight: bold; width: 87px">Destino:</div>
+                                    <div class="item-input">
+                                        <input type="text" id="destino_cliente" name="destino_cliente">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="display: flex;">
+                        <button style="width: 100%; border-radius: 0px" class="button button-big button-fill color-red" onclick="termina_viaje()">Terminar Viaje</button>                        
+                    </div>
+
+
+                </div>
+            </div>  
+        </div>
+  <div class="popup popup-historial" style="background: #f2f2f2">
+      <div class="bar-button-close">
+        <div class="row no-gutter">
+          <div class="col-80">
+             
+          </div>
+          <div class="col-20">
+            <a href="#" class="close-popup" id="a-button-close"><button class="button-close-modal"></button></a>  
+          </div>
+        </div>
+      </div>      
+      <div class="card data-table data-table-collapsible data-table-init">
+        <div class="card-header" style="background: #0489B1; padding: 10px 10px">
+          <div class="data-table-title" style="color: #fff">Detalles del viaje</div>
+        </div>
+        <div class="card-content" id="tabla-historial-detalle">
+          <table class="table-vertical">
+            <thead>
+              <tr>
+                <th class="label-cell">Fecha</th>
+                <td class="label-cell" id="fecha-viaje"></td>
+              </tr>
+              <tr>
+                <th class="numeric-cell">Hora de salida</th>
+                <td class="numeric-cell" id="horaSalida-viaje"></td>
+              </tr>
+              <tr>
+                <th class="numeric-cell">Hora de llegada</th>
+                <td class="numeric-cell" id="horaLlegada-viaje"></td>
+              </tr>
+              <tr>
+                <th class="numeric-cell">Ubicación</th>
+                <td class="numeric-cell" id="ubicacion-viaje"></td>
+              </tr>
+              <tr>
+                <th class="numeric-cell">Destino</th>
+                <td class="numeric-cell" id="destino-viaje"></td>
+              </tr>
+              <tr>
+                <th class="numeric-cell">Chofer</th>
+                <td class="numeric-cell" id="nombreChofer-viaje"></td>
+              </tr>
+              <tr>
+                <th class="numeric-cell">Matricula de unidad</th>
+                <td class="numeric-cell" id="matricula-viaje"></td>
+              </tr>
+               <tr>
+                <th class="numeric-cell">Costo</th>
+                <td class="numeric-cell" id="costo-viaje"></td>
+              </tr>
+
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+<div class="popup popup-perfil">
+   <div class="bar-button-close">
+        <div class="row no-gutter">
+          <div class="col-80">
+             
+          </div>
+          <div class="col-20">
+            <a href="#" class="close-popup" id="a-button-close"><button class="button-close-modal"></button></a>  
+          </div>
+        </div>
+    </div>
+     <div class="col-100 " style="text-align: left; border-bottom: 1px solid #d2d2d2; margin: 10px 10px 0px 10px">
+        <label class="title-info-perfil">Información básica<a href="#" data-popup=".popup-about" class="open-popup" style="float: right;"></a></label>
+    </div>
+    <div class="col-100" id="inf-user-modal">
+        <div class="row no-gutter" id="row-info-perfil">
+            <div class="col-40" style="font-weight: bold;">Nombre(s)</div>
+            <div class="col-60"><input id="nombre-mod" type="text" name=""></div>
+        </div>
+        <div class="row no-gutter" id="row-info-perfil">
+            <div class="col-40" style="font-weight: bold;">Apellido paterno</div>
+            <div class="col-60"><input id="apellidop-mod" type="text" name=""></div>
+        </div>
+        <div class="row no-gutter" id="row-info-perfil">
+            <div class="col-40" style="font-weight: bold;">Apellido materno</div>
+            <div class="col-60"><input id="apellidom-mod" type="text" name=""></div>
+        </div>
+      
+        <div class="row no-gutter" id="row-info-perfil">
+            <div class="col-40" style="font-weight: bold;">Género</div>
+            <div class="col-60" style="display: flex;">
+            <div style="text-align: center; font-size: 14px">
+              <label class="label-checkbox item-content" style="display: flex;">
+                <!-- Checked by default -->
+                Masculino&nbsp;<input type="checkbox" name="my-checkbox" id="checkbox-mod-m">
+                <div class="item-media">
+                  <i class="icon icon-form-checkbox" style="width: 20px; height: 20px"></i>
+                </div>
+              </label>
+            </div>
+            <!-- Another chekbox item -->
+            <div style="text-align: center; margin:0px 20px;font-size: 14px ">
+              <label class="label-checkbox item-content" style="display: flex;">
+                Femenino&nbsp;<input type="checkbox" name="my-checkbox" id="checkbox-mod-f">
+                <div class="item-media">
+                  <i class="icon icon-form-checkbox" style="width: 20px; height: 20px"></i>
+                </div>
+              </label>
+            </div>
+            </div>
+        </div>
+        <div class="row no-gutter" id="row-info-perfil">
+            <div class="col-30" style="font-weight: bold;">Teléfono</div>
+            <div class="col-60"><input id="tel-mod" type="text" name=""></div>
+        </div>
+        <div class="row no-gutter" id="row-info-perfil">
+            <div class="col-30" style="font-weight: bold;">Celular</div>
+            <div class="col-60"><input id="cel-mod" type="text" name=""></div>
+        </div>
+        <div class="row no-gutter" id="row-info-perfil">
+            <div class="col-100" style="font-weight: bold;">Dirección:</div>
+            
+            <div class="col-100" style="display: flex;border-bottom: 1px solid #f2f2f2">
+                <div class="col-80"><input id="calle-mod" type="text" name=""></div>
+                <div class="col-20"><input id="num-mod" type="text" name=""></div>
+            </div>
+            <div class="col-100" style="display: flex;color: #b2b2b2">
+                <div class="col-80" style="text-align: center; font-size: 14px; font-weight: bold;">Calle</div>
+                <div class="col-20" style="text-align: center; font-size: 14px; font-weight: bold;">No.</div>
+            </div>
+            <div class="col-100" style="display: flex;border-bottom: 1px solid #f2f2f2">
+                <div class="col-80"><input id="col-mod" type="text" name=""></div>
+                <div class="col-20"><input id="cp-mod" type="text" name=""></div>
+            </div>
+            <div class="col-100" style="display: flex;color: #b2b2b2">
+                <div class="col-80" style="text-align: center; font-size: 14px; font-weight: bold;">Colonia</div>
+                <div class="col-20" style="text-align: center; font-size: 14px; font-weight: bold;">C.P.</div>
+            </div>
+
+        </div>
+         
+    </div>
+    <button style="position: absolute;bottom: 0px; width: 100%; border-radius: 0px;margin: 20px 0 0 0" onclick='actualizaPerfil()' id="" value="" class="button button-big button-fill color-lightblue">Guardar cambios</button>
+</div>
+<div class="popover popover-foto">
+    <div class="popover-angle"></div>
+    <div class="popover-inner">
+        <div class="list-block">
+            <ul>
+                <li><a class="list-button item-link" style="border-radius: 0"><button style="width: 100%; border-radius:0;background: 0;color: #6d6d72;" onclick='' id="" value="" class="button button-big button-fill ">Cambiar foto</button></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="popover popover-more">
+    <div class="popover-angle"></div>
+    <div class="popover-inner">
+        <div class="list-block">
+            <ul>
+                <li style="position: initial;">
+                    <a data-popover=".popup-verLugar" onclick="popup_verLugar()" class="close-popover list-button item-link" style="border-radius: 0">
+                        <button style="width: 100%; border-radius:0;background: 0;color: #6d6d72;" onclick='' id="" value="" class="button button-big button-fill close-popover">Ver</button>
+                    </a>
+                </li>
+                <li style="position: initial;">
+                    <a class="close-popover list-button item-link" style="border-radius: 0">
+                        <button style="width: 100%; border-radius:0;background: 0;color: #6d6d72;" onclick='' id="" value="" class="button button-big button-fill">Modificar</button>
+                    </a>
+                </li>
+                <li style="position: initial;">
+                    <a class="list-button item-link close-popover " style="border-radius: 0">
+                        <button style="width: 100%; border-radius:0;background: 0;color: #6d6d72;" onclick='borrarLugar()' class="button button-big button-fill ">Eliminar</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="popover popover-icon" style="width: auto;">
+    <div class="popover-angle"></div>
+    <div class="popover-inner">
+      <div class="list-block">
+        <table class="tabla-icon">
+          <tr>
+              <td onclick="setIcon('Video','videocam')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">videocam</i>&nbsp;Video</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Corchea','tune_fill')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">tune_fill</i>&nbsp;Corchea</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Estrella','star_fill')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">star_fill</i>&nbsp;Estrella</div>
+                    </div>
+                  </label>
+              </td>
+          </tr>
+          <tr>
+              <td onclick="setIcon('Amigos','persons')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">persons</i>&nbsp;Amigos</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Dinero','money_dollar')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">money_dollar</i>&nbsp;Dinero</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Avión','paper_plane')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">paper_plane</i>&nbsp;Avión</div>
+                    </div>
+                  </label>
+              </td>
+          </tr>
+          <tr>
+              <td onclick="setIcon('Casa','home')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">home</i>&nbsp;Casa</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Engrane','gear')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">gear</i>&nbsp;Engrane</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Film','film')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">film</i>&nbsp;Film</div>
+                    </div>
+                  </label>
+              </td>
+          </tr>
+          <tr>
+              <td onclick="setIcon('Cámara','camera')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">camera</i>&nbsp;Cámara</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Libro','book')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">book</i>&nbsp;Libro</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Bolsa','bag')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">bag</i>&nbsp;Bolsa</div>
+                    </div>
+                  </label>
+              </td>
+          </tr>
+          <tr>
+              <td onclick="setIcon('Campana','bell')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">bell</i>&nbsp;Campana</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Reloj','alarm')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">alarm</i>&nbsp;Reloj</div>
+                    </div>
+                  </label>
+              </td>
+              <td onclick="setIcon('Tarjeta','card')">
+                  <label class="label-radio item-content">
+                    <!-- Checked by default -->
+                    <input type="radio" name="my-radio" value="Books" checked="checked">
+                    <div class="item-inner">
+                      <div class="item-title"><i class="icon f7-icons">card</i>&nbsp;Tarjeta</div>
+                    </div>
+                  </label>
+              </td>
+          </tr>
+        </table>
+      </div>           
+    </div>
+</div>
+
+<!--||||||||||||||||||||NUEVA CUENTA BANCARIA||||||||||||||||||-->   
+<div class="login-screen">
+  <div class="view">
+    <div class="page">
+      <div class="page-content login-screen-content">
+        <div class="bar-button-close">
+          <div class="row no-gutter">
+            <div class="col-80">
+               
+            </div>
+            <div class="col-20">
+              <a href="#" class="close-login-screen" id="a-button-close"><button class="button-close-modal"></button></a>  
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 16px;font-weight: bold;color: #6d6d72;" class="login-screen-title"> Agrega una nueva cuenta bancaria  </div>
+        <form>
+          <div class="list-block">
+            <ul>
+              <li class="item-content" style="background:0">
+                <div class="item-inner">
+                  <div class="item-title label" style="color: #6d6d72;">Número de<br>tarjeta</div>
+                  <div class="item-input">
+                    <input type="text" name="username" placeholder="XXXX-XXXX-XXXX-XXXX">
+                  </div>
+                </div>
+              </li>
+              <li class="item-content" style="background:0">
+                <div class="item-inner">
+                  <div class="item-title label" style="color: #6d6d72;">Dígitos de<br>seguridad</div>
+                  <div class="item-input" style="display: flex; align-items: center;">
+                    <input type="text" name="username" placeholder="XXXX" maxlength="4" style="max-width: 75px">
+                    <a id="digits" href="#" class=""><button class="button-question-modal"></button></a>
+
+                </div>
+              </li>
+              <li class="item-content" style="background:0">
+                <div class="item-inner">
+                  <div class="item-title label" style="color: #6d6d72;">Fecha de<br>vencimiento</div>
+                  <div class="item-input" style="display: flex; align-items: center;">
+                    <select id="meses" style="width: auto;color: #6d6d72;">
+                      <option value="1">01</option>
+                      <option value="2">02</option>
+                      <option value="3">03</option>
+                      <option value="4">04</option>
+                      <option value="5">05</option>
+                      <option value="6">06</option>
+                      <option value="7">07</option>
+                      <option value="8">08</option>
+                      <option value="9">09</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                    /
+                    <select id="anio" style="color: #6d6d72;">
+                    </select>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div style="width: 100%;display: flex;justify-content: center;padding: 20px 0px 0px 0px;">
+                <img style="width: 200px;height: 50px;" src="icon/vm.png">
+            </div>
+          </div>
+          
+        </form>
+        <button href="#" class="button button-big button-fill color-lightblue" style="position: absolute;bottom: 0; border-radius: 0; width: 100%">Agregar</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- agregar metodos de pago-->
+
+<div class="popup popup-metodospago">
+     <div class="bar-button-close">
+        <div class="row no-gutter">
+          <div class="col-80" >             
+          </div>
+          <div class="col-20">
+            <a href="#" class="close-popup" id="a-button-close"><button class="button-close-modal"></button></a>  
+          </div>
+        </div>
+    </div>
+    <div class="content-block" style="margin: 0;padding: 0;">
+          <div class="list-block">
+              <ul>
+                <!-- Single chekbox item -->
+                <li>
+                  <label class="label-checkbox item-content">
+                    <!-- Checked by default -->
+                    <input type="checkbox" id="mod-paypal" value="paypal">
+                    <div class="item-media">
+                      <i class="icon icon-form-checkbox"></i>
+                      <img src="icon/paypal.png">
+                    </div>
+                    <div class="item-inner">                      
+                      <div class="item-title">Pay-Pal</div>
+                    </div>
+                  </label>
+                </li>
+                <!-- Another chekbox item -->
+                <li>
+                  <label class="label-checkbox item-content">
+                    <input type="checkbox" id="mod-efectivo" value="efectivo">
+                    <div class="item-media">
+                      <i class="icon icon-form-checkbox"></i>
+                      <img src="icon/efectivo.png">
+                    </div>
+                    <div class="item-inner">
+                      <div class="item-title">Efectivo</div>
+                    </div>
+                  </label>
+                </li>
+              </ul>
+          </div>
+          <button style="position: absolute; bottom: 0px; width: 100%;" class="button button-big button-fill color-lightblue" onclick="agregametodospago()">Actualizar</button>          
+      </div> 
+</div> 
+
+<div class="popup popup-agregarLugar">
+     <div class="bar-button-close">
+        <div class="row no-gutter">
+          <div class="col-80" >
+             
+          </div>
+          <div class="col-20">
+            <a href="#" class="close-popup" id="a-button-close"><button class="button-close-modal"></button></a>  
+          </div>
+        </div>
+    </div>     
+    
+    <div>
+        <!--<div style="position: absolute;top: 44px;bottom: 146px;width: 100%;" id="mapLugar">
+        </div>  -->
+    </div>
+    <div class="content-block" style="margin: 0;padding: 0">
+        <div class="list-block" style="margin: 0" id="div-map">
+
+        </div>
+        <div class="list-block" style="margin: 0;position: absolute;bottom: 0;width: 100%">
+            <ul>
+              <!-- Text inputs -->
+                <li style="background: #fff;display: flex;">
+                  <div class="item-content" style="width: 50%">
+                    <div class="item-media"><i class="icon f7-icons">list</i></div>
+                    <div class="item-inner">
+                      <div class="item-input" style="display: flex">
+                        <input id="nombreLugarFavorito" type="text" placeholder="Nombre">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-content" style="width: 50%">
+                    <div class="item-media"><i class="icon f7-icons" id="showIcon">add</i></div>
+                    <div class="item-inner">
+                      <div class="item-input" style="display: flex">
+                          <a href="#" data-popover=".popover-icon" class="open-popover" id="linkIcon">Asignar icono</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li style="background: #fff">
+                  <div class="item-content">
+                    <div class="item-media"><i class="icon f7-icons">home</i></div>
+                    <div class="item-inner">
+                      <div class="item-input">
+                        <input id="direccionLugarFavorito" type="text" placeholder="Dirección" id="direccion">
+                      </div>
+                    </div>
+                  </div>
+                </li>
+          </ul>
+          <button style="width: 100%; border-radius: 0px" onclick="agregarLugar()" value="" class="button button-big button-fill color-lightblue close-popup">Aceptar</button>
+        </div> 
+    </div>  
+</div>
+
+
+<div class="popup popup-verLugar verLugar" >
+    <div class="bar-button-close">
+        <div class="row no-gutter">
+          <div class="col-80" >
+          </div>
+          <div class="col-20">
+            <a href="#" class="close-popup" id="a-button-close"><button class="button-close-modal"></button></a>  
+          </div>
+        </div>
+    </div>     
+    <div class="content-block" style="margin: 0;padding: 0 15px">
+        <div class="list-block" id="loader-verLugar" style="margin: 0">
+            <div>
+                <span class="preloader"></span>
+            </div>
+        </div>
+        <div class="list-block" id="list-verLugar" style="margin: 0">
+            <ul>
+              <!-- Text inputs -->
+                <li style="background: #fff;display: flex;">
+                  <div class="item-content">
+                    <div class="item-media" style="width: 112px"><i class="icon f7-icons" id="ver-showIcon" style="width: 25px"></i>&nbsp;Nombre:</div>
+                    <div class="item-inner">
+                      <div class="item-input" style="display: flex">
+                        <input id="ver-nombreLugarFavorito" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li style="background: #fff">
+                  <div class="item-content">
+                    <div class="item-media"><i class="icon f7-icons">home</i>&nbsp;Dirección:</div>
+                    <div class="item-inner">
+                      <div class="item-input">
+                        <textarea id="ver-direccionLugar"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              
+          </ul>
+      </div>  
+    </div>
+</div>
+
+<div class="popup popup-calificacion-taxista">
+      <div class="content-block-title" style="height: 34px">Califica a tu taxista</div>     
+      <div class="content-block" style="margin: 0;padding: 0;">
+        <form style="padding: 5em 0;" id="frm_calificacion_taxista">
+              <p style="text-align: center; font-size: 4em; margin: 0;">Calificación</p>
+              <p class="clasificacion" style="font-size: 5em; text-align: center;">
+                  <input id="radio1" class="radio_estrella" type="radio" name="calificacion" value="5"><label class="label_estrella" for="radio1">★</label>
+                  <input id="radio2" class="radio_estrella" type="radio" name="calificacion" value="4"><label class="label_estrella" for="radio2">★</label>
+                  <input id="radio3" class="radio_estrella" type="radio" name="calificacion" value="3"><label class="label_estrella" for="radio3">★</label>
+                  <input id="radio4" class="radio_estrella" type="radio" name="calificacion" value="2"><label class="label_estrella" for="radio4">★</label>
+                  <input id="radio5" class="radio_estrella" type="radio" name="calificacion" value="1"><label class="label_estrella" for="radio5">★</label>
+              </p>
+              <p style="padding: 0 5em;">
+                  <a class="button button-big button-fill color-lightblue" onclick="califica_taxista();" style="border-radius: 0;">Calificar</a>                    
+              </p>
+          </form>
+      </div>
+   </div>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<div class="content-block-title">Pide tu taxi</div>
+<div class="list-block" style="margin: 0 !important; width: 100%">
+   <div class="" style=" padding: 20px 0px !important; text-align: center;">Verifica las direcciones</div>
+    <ul id="direcciones" style="padding: 0px 20px">
+      <li style="background: #fff">
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label" style="font-weight: bold; width: 87px;">Ubicación:</div>
+            <div class="item-input">
+              <input type="text" id="ubicacion" name="ubicacion">
+            </div>
+          </div>
+        </div>
+      </li>
+      
+      <li style="background: #fff">
+        <div class="item-content">
+          <div class="item-inner" >
+            <div class="item-title label" style="font-weight: bold; width: 87px">Destino:</div>
+            <div class="item-input">
+              <input type="text" id="destino" name="destino">
+            </div>
+          </div>
+        </div>
+      </li>
+     
+    </ul>
+  
+
+    <div>
+      <div class="" style=" padding: 20px 0px !important; text-align: center;">Detalles del viaje</div>
+      <ul id="direcciones" style="padding: 0px 20px">
+        <li style="background: #fff">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label" style="font-weight: bold; width: 100px;">Unidades:</div>
+              <div class="item-input">
+                <select id="no_unidades">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li style="background: #fff">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label" style="font-weight: bold; width: 100px;">Viajes:</div>
+              <div class="item-input">
+                1
+              </div>
+            </div>
+          </div>
+        </li>
+        <li style="background: #fff">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label" style="font-weight: bold; width: 100px;">Costo<br>apróx:</div>
+              <div class="item-input" style="display: flex;">
+                $
+                <div id="costo">
+                    50  
+                </div>
+                <div class="item-title label" style="width: 100px;">&nbsp;por unidad</div>
+              </div>
+            </div>
+          </div>
+        </li>
+      
+        <li style="background: #fff">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label" style="font-weight: bold; width: 100px">Distancia:</div>
+              <div class="item-input" id="distancia">
+                
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div id="respuesta">
+      
+    </div>
+    <button style="position: absolute; width: 100%; border-radius: 0px; bottom: 0" onclick='pedir()' id="destino" value="" class="button button-big button-fill color-lightblue">Pedir unidad(es)</button>
+  </div>
+
+</div>
+ <script type="text/javascript" src="js/variables.js"></script>
+<script type="text/javascript">
+  var destlat=document.getElementById("txt_lat_des").value;
+  var destlng=document.getElementById("txt_long_des").value;
+   $( document ).ready(function() {
+        $('#ubicacion').val(ubicacion);
+        $('#destino').val(destino);
+
+        var directionsService = new google.maps.DirectionsService();
+          var start=new google.maps.LatLng(ubicacionLat,ubicacionLng);
+          var end=new google.maps.LatLng(destlat,destlng);
+        
+          var request = {
+            origin:start,
+            destination:end,
+            travelMode: google.maps.TravelMode.DRIVING
+          };
+        
+          directionsService.route(request, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              var distancia=result.routes[0].legs[0].distance.value/1000;
+              $("#distancia").html(distancia+" km");
+              console.log(result.routes[0].legs[0].distance.value + " meters");
+            }
+          });
+        });
+
+    function pedir(){
+        $( "#contenido_pagina" ).load( "solicitando.html" );
+        var URL=ruta+"/Clientes/buscarTaxiDisponible.php";
+        //var URL="http://192.168.100.13/taxiApp/Clientes/buscarTaxiDisponible.php";
+        //var URL="http://localhost/taxiapp/Clientes/buscarTaxiDisponible.php";
+        var no_unidades=$("#no_unidades option:selected").text();
+        $.ajax({
+          type: "POST",
+          dataType : 'json',
+          cache: false,
+          url:URL,
+          data: 
+              "id_cliente="+id_cliente+"&latitud_ubicacion="+ubicacionLat+"&longitud_ubicacion="+ubicacionLng+"&latitud_destino="+destlat+"&longitud_destino="+destlng+"&no_unidades="+no_unidades,
+               // Adjuntar los campos del formulario enviado.
+          success: function (data)
+          {
+            $("#respuesta").html(data); // Mostrar la respuestas del script PHP.
+             console.log(data);
+             var peticion=data[0];
+             var chofer=data[1];
+             var matricula=data[2];
+             var estado=data[3];
+             //alert("peticion"+peticion+"\nchofer "+chofer+"\nmatricula "+matricula+"\nestado "+estado);
+
+             if (estado=="aceptada"){
+              document.getElementById("id_pet").value=peticion;
+              document.getElementById("id_chof").value=chofer;
+              document.getElementById("matricula_chof").value=matricula;
+              $( "#contenido_pagina" ).load( "encamino.html");
+
+             }else{
+              myApp.modal({
+                title:  'Ningun Taxi Disponible',
+                text: 'Intenta de nuevo en unos minutos',
+                buttons: [
+                  {
+                    text: 'Ok',
+                    onClick: function() {
+                       $( "#contenido_pagina" ).load( "cancelado.html" );
+                    }
+                  }
+                ]
+              })
+             }
+              
+          },
+          error: function(e){
+              alert('Error: '+e);
+          }  
+        });
+    }
+</script>

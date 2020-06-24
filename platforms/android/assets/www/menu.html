@@ -1,0 +1,92 @@
+<script type="text/javascript">
+      $( document ).ready(function() {
+         var myApp = new Framework7();
+ 
+          var $$ = Dom7;
+ 
+          $$('.open-right-panel').on('click', function (e) {
+              myApp.openPanel('right');
+          });
+      });
+
+</script>
+<div class="content-block-title" style="box-shadow: 0px 1px 10px 1px rgba(0,0,0,1);">IPA</div>
+  <div class="list-block" style="padding-top: 34px">
+    <ul >
+      <li class="accordion-item close-panel"  onclick='$("#contenido_pagina").load( "inicio_content.html" );' style="padding: 7px 7px 7px 7px">
+        <a href="#" class="item-content item-link">
+          <div class="item-media"><i class="icon f7-icons">compass</i></div>
+          <div class="item-inner">
+            <div class="item-title">Pedir unidad</div>
+          </div>
+        </a>
+      </li>
+      
+      <li onclick='$( "#contenido_pagina" ).load( "perfil.html" )' class="accordion-item" style="padding: 7px 7px 7px 7px">
+        <a href="#" class="item-link item-content">
+            <div class="item-media"><i class="f7-icons color-perfil">person</i></div>
+            <div class="item-inner">
+              <div class="item-title">Perfiles</div>
+            </div>
+          </a>
+      </li >
+     
+    <li  class="accordion-item" style="padding: 7px 7px 7px 7px">
+        <a href="#" class="item-link item-content">
+            <div class="item-media"><i class="icon f7-icons">paper_plane_fill</i></div>
+            <div class="item-inner">
+                <div class="item-title">Mis viajes</div>
+            </div>
+
+        </a>
+        <div class="accordion-item-content">
+          <div class="content-block" style="padding: 0 0 0 15px">
+                <ul>
+                  <li onclick='$( "#contenido_pagina" ).load( "Historial.html" )' class="close-panel">
+                    <a href="#" class="item-link item-content">
+                      <div class="item-media"><i class="icon f7-icons" style="color: #0489b1">today</i></div>
+                      <div class="item-inner">
+                        <div class="item-title">Historial</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li onclick='$( "#contenido_pagina" ).load( "lugaresconcurridos.html" )' style="border:0">
+                    <a href="#" class="item-link item-content">
+                      <div class="item-media"><i class="icon f7-icons" style="color: darkgoldenrod">star_fill</i></div>
+                      <div class="item-inner">
+                        <div class="item-title">Lugares concurridos</div>
+                      </div>
+                    </a>
+                  </li>
+                  
+                </ul>
+          </div>
+        </div>
+    </li>
+    <li onclick='$( "#contenido_pagina" ).load( "redes.html" )' class="accordion-item" style="padding: 7px 7px 7px 7px">
+        <a href="#" class="item-link item-content">
+            <div class="item-media"><i class="f7-icons color-socialnetworks">world</i></div>
+            <div class="item-inner">
+              <div class="item-title">Redes sociales</div>
+            </div>
+        </a>
+            
+    </li>
+    <li class="accordion-item" style="padding: 7px 7px 7px 7px">
+        <a href="#" class="item-link item-content">
+            <div class="item-media"><i class="icon f7-icons">settings</i></div>
+            <div class="item-inner">
+                <div class="item-title">Configuración</div>
+            </div>
+        </a>
+    </li>
+    <li onclick="logout()" class="accordion-item" style="padding: 7px 7px 7px 7px">
+        <a href="#" class="item-link item-content">
+            <div class="item-media"><i class="icon f7-icons">logout</i></div>
+                <div class="item-inner">
+                <div class="item-title">Cerrar sesión 2</div>
+            </div>
+        </a>
+    </li>
+    </ul>
+</div>

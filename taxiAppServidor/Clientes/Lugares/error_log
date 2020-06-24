@@ -1,0 +1,24 @@
+[19-Sep-2017 04:38:24 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[19-Sep-2017 04:38:24 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[19-Sep-2017 04:41:35 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[19-Sep-2017 04:41:35 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[19-Sep-2017 04:43:15 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[19-Sep-2017 04:43:15 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[23-Sep-2017 16:10:26 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[23-Sep-2017 16:10:26 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[23-Sep-2017 16:10:35 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[23-Sep-2017 16:10:35 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[23-Sep-2017 16:10:40 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[23-Sep-2017 16:10:40 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[23-Sep-2017 16:11:05 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[23-Sep-2017 16:11:05 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[23-Sep-2017 16:12:40 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[23-Sep-2017 16:12:40 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 10
+[23-Sep-2017 16:18:28 UTC] PHP Notice:  Array to string conversion in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 23
+[23-Sep-2017 16:58:57 UTC] PHP Notice:  Undefined index: id_cliente in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 6
+[23-Sep-2017 16:58:57 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 11
+[23-Sep-2017 17:09:02 UTC] PHP Notice:  Array to string conversion in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 21
+[23-Sep-2017 17:09:20 UTC] PHP Notice:  Array to string conversion in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 21
+[23-Sep-2017 17:10:13 UTC] PHP Notice:  Array to string conversion in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 21
+[23-Sep-2017 17:10:28 UTC] PHP Notice:  Array to string conversion in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 21
+[23-Sep-2017 17:10:43 UTC] PHP Notice:  Array to string conversion in /home/bcodemex/public_html/taxiapp/Clientes/Lugares/mostrarLugaresfavoritos.php on line 21
