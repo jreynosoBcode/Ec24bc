@@ -1,1 +1,1 @@
-# IPAPasajeroVersionPhoneGap"# Ec24bc" 
+# IPAPasajeroVersionPhoneGap

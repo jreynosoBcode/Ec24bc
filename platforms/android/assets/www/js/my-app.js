@@ -52,6 +52,8 @@ $$('.open-icon').on('click', function () {
 var ubicacion;
 var destino;
 function buscarTaxi(){
+    console.log("buscando...");
+    
     ubicacion=$('#ubicacion').val();
     destino=$('#destino').val();
     if(ubicacion=="" || destino==""){
@@ -378,8 +380,8 @@ function getfavoritos(){
         data:"id_cliente="+id_cliente,
         success: function (data)
         {   
-            console.log(data[0][0]);
-            console.log(data[1][0]);
+            //console.log(data[0][0]);
+            //console.log(data[1][0]);
             var no_lugares=data.length;
             if ($("#tabla_lugares")) {
                 $("#tabla_lugares").empty();

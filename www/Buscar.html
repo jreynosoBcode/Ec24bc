@@ -1,0 +1,52 @@
+<script type="text/javascript" src="js/maps.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDjGHdi53xmyV8C4zP3vPBp-NVYZiAKJFk&libraries=places,geometry&callback=initMap" async defer></script>
+    
+    <script>
+      function init() {
+    console.log("iniciando");
+      var input = document.getElementById('destino');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+
+   }
+
+   setTimeout(function(){ 
+    
+    google.maps.event.addDomListener(window, 'load', init);
+    init();
+    }, 1000);
+
+</script>
+<style type="text/css">
+  .mi{
+    box-sizing: border-box;
+    border: none;
+    background: 0 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    
+    color: #000;
+    font-size: 17px;
+    font-family: inherit;
+  }
+
+  body{
+    margin: 0px;
+    line-height: none;
+  }
+</style>
+<!--<ul>
+<li>
+          <div class="item-content">
+        <div class="item-inner" style="background: #f2f2f2; color: #000">
+          <div class="item-title label" style="font-weight: bold; width: 87px">Destino</div>
+          <img src="icon/destino.png" style="width: 25px;">
+            <input type="text" id="destino" name="destino" size="50">          
+        </div>
+      </div>
+    </li>
+    </ul>-->
+    <input type="text" id="destino" class="mi" name="destino" size="50">  
