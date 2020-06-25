@@ -2,10 +2,7 @@
     $('#back-button').css('display','flex');
 </script>
 
-<div style="position: absolute;top: 44px;bottom: 168px;width: 100%;" id="map">
-    
-</div>
-  
+
 <div class="list-block" style="margin: 0 !important; position: absolute;bottom: 0; width: 100%">
  <div class="content-block-title" style="height: 34px">Direcciones</div>
   <ul id="direcciones">
@@ -23,20 +20,24 @@
     
     <li>
       <div class="item-content">
-        <div class="item-inner" style="background: #f2f2f2; color: #000">
+        <div class="item-inner" style="background: #f2f2f2; color: #000;align-items: flex-start;">
           <div class="item-title label" style="font-weight: bold; width: 87px">Destino</div>
           <img src="icon/destino.png" style="width: 25px;">
           <div class="item-input">
             <!--<input type="text" id="destino" name="destino" size="50" height="50px">          -->
-            <iframe src="Buscar.html" style="width: 100%;border: none;height: 43px !important;"></iframe>
+            <iframe src="Buscar.html" style="width: 100%;border: none;height: 100px !important;"></iframe>
           </div>
         </div>
       </div>
     </li>
    
   </ul>
-  <button style="width: 100%; border-radius: 0px" onclick='buscarTaxi();' id="destino" value="" class="button button-big button-fill color-lightblue">Siguiente77</button>
+  <button style="width: 100%; border-radius: 0px" onclick='buscarTaxi();' id="destino" value="" class="button button-big button-fill color-lightblue">Siguiente8</button>
 </div>
+<div style="position: absolute;top: 44px;bottom: 268px;width: 100%;" id="map">
+    
+</div>
+
 
 <script type="text/javascript" src="js/maps.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDjGHdi53xmyV8C4zP3vPBp-NVYZiAKJFk&libraries=places,geometry&callback=initMap" async defer></script>
